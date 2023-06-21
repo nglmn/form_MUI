@@ -1,26 +1,25 @@
 import { Box, Typography, Button, Divider, FormControlLabel, FormControl, Checkbox, Link } from '@mui/material';
-// import * as yup from "yup";
-// import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller } from 'react-hook-form';
 
 import TextFields from './TextFields';
 import AutocompleteForms from './AutocompleteForms';
 import GoogleIcon from '@mui/icons-material/Google';
 
-
-// const schema = yup
-//     .object({
-//         Name: yup.string().min(2, 'Too Short!').required('Name is required'),
-//         LastName: yup.string().required('Name is required'),
-//         Password: yup.string().required('Password is required'),
-//         Email: yup.string().email('Invalid email').required('Name is required'),
-//         Country: "",
-//         City: "",
-//         Terms: yup.bool(),
-//     });
+const schema = yup
+    .object({
+        Name: yup.string().min(2, 'Too Short!').required('Name is required'),
+        LastName: yup.string().required('Name is required'),
+        Password: yup.string().required('Password is required'),
+        Email: yup.string().email('Invalid email').required('Name is required'),
+        Country: "",
+        City: "",
+        Terms: yup.bool(),
+    });
 
 export default function RegisterForm() {
-    const { handleSubmit, control, reset } = useForm({
+    const { handleSubmit, control, formState: { errors }, reset } = useForm({
         defaultValues: {
             Name: "",
             LastName: "",
@@ -30,10 +29,12 @@ export default function RegisterForm() {
             City: "",
             Terms: false,
         },
-        // resolver: yupResolver(schema)
+        resolver: yupResolver(schema)
     });
+    // console.log(errors)
+    // console.log('hi')
 
-    const onSubmit = ({ data }) => {
+    const onSubmit = (data) => {
         console.log(data);
         reset();
     }
@@ -42,7 +43,7 @@ export default function RegisterForm() {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <Box sx={{ display: 'block', width: 400, height: 650, borderRadius: '6px', boxShadow: 1, p: 4 }} >
+            <Box sx={{ display: 'block', width: 400, height: 650, borderRadius: '6px', boxShadow: 1, p: 4 }}  >
                 <Typography variant="h5" component="h2" sx={{ fontWeight: 'light', color: 'black', textAlign: 'left' }}>
                     Зарегистрируйтесь что би найти работу по душе
                 </Typography>;
@@ -55,14 +56,14 @@ export default function RegisterForm() {
                 <Divider sx={{ mt: 3, color: 'black' }}>or</Divider>
 
                 <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <TextFields name={'FirstName'} label={'First Name'} control={control} marginRight={16} />
-                    <TextFields name={'LastName'} label={'Last Name'} control={control} />
+                    <TextFields name={'FirstName'} errors={errors} label={'First Name'} control={control} marginRight={16} />
+                    <TextFields name={'LastName'} errors={errors} label={'Last Name'} control={control} />
                 </Box>
-                <TextFields label={'Email'} name={'email'} control={control} sx={{ mt: 2, width: '100%' }} />
-                <TextFields name={'password'} label={'Password'} control={control} />
+                <TextFields label={'Email'} name={'email'} errors={errors} control={control} sx={{ mt: 2, width: '100%' }} />
+                <TextFields name={'password'} errors={errors} label={'Password'} control={control} />
 
-                <AutocompleteForms name={'Country'} label={'Country'} control={control} />
-                <AutocompleteForms name={'City'} label={'City'} control={control} />
+                <AutocompleteForms name={'Country'} errors={errors} label={'Country'} control={control} />
+                <AutocompleteForms name={'City'} errors={errors} label={'City'} control={control} />
 
                 <FormControl>
                     <Controller
@@ -72,6 +73,7 @@ export default function RegisterForm() {
                             <FormControlLabel
                                 control={<Checkbox {...fields} required />}
                                 sx={{ color: 'black', textAlign: 'left', mt: 2, fontWeight: 'regular' }}
+                                errors={errors}
                                 label={terms} />
                         )}
                     />

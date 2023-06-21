@@ -4,17 +4,20 @@ import { Controller } from "react-hook-form";
 
 
 // eslint-disable-next-line react/prop-types
-const AutocompleteForms = ({ name, label, control }) => {
+const AutocompleteForms = ({ name, label, control, errors }) => {
 
     const [listCountry, setListCountry] = useState([]);
 
     const countryName = listCountry.map(item => item.country).sort();
-    console.log(countryName)
+
     useEffect(() => {
-        fetch('https://countriesnow.space/api/v0.1/countries')
+        fetch('https://countriesnow.space/api/v0.1/countries/')
             .then(res => res.json())
             .then(res => setListCountry(res.data))
     }, []);
+
+    const inputErrors = (error) => error ? { error: true } : { error: false }
+
     return (
         <FormControl sx={{ width: '100%', mt: 2, textAlign: 'left' }}>
             <Controller
@@ -26,11 +29,12 @@ const AutocompleteForms = ({ name, label, control }) => {
                         {...field}
                         label={label}
                         size="small"
-                        required
+                        // required
+                        {...inputErrors(errors[name])}
                         select variant="outlined">
                         <MenuItem value=''>None</MenuItem>
                         {countryName.map(country => (
-                            <MenuItem key={country} value={country}>{country}</MenuItem>
+                            <MenuItem key={Math.random()} value={country}>{country}</MenuItem>
                         ))}
                     </TextField>
                 )}

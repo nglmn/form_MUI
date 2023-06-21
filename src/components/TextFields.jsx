@@ -3,7 +3,10 @@ import { Controller } from "react-hook-form";
 
 
 // eslint-disable-next-line react/prop-types
-const TextFields = ({ label, inputProps, control, name, marginRight }) => {
+const TextFields = ({ label, inputProps, control, name, marginRight, errors }) => {
+
+    const inputErrors = (error) => error ? { error: true } : { error: false }
+
     return (
         <FormControl sx={{ mt: 2, width: '100%', mr: { marginRight } }} variant="outlined">
             <Controller
@@ -15,6 +18,7 @@ const TextFields = ({ label, inputProps, control, name, marginRight }) => {
                         label={label}
                         size='small'
                         variant="outlined"
+                        {...inputErrors(errors[name])}
                         inputProps={inputProps} />
                 )} />
         </FormControl>
