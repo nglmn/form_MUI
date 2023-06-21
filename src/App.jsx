@@ -1,10 +1,10 @@
-import Form from './components/Form';
+import RegisterForm from './components/Form';
 import './App.css';
 
 function App() {
   return (
-    <Form />
+    <RegisterForm />
   )
 }
 
-export default App
+export default App;
