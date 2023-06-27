@@ -1,10 +1,11 @@
-import { Box, Typography, Button, Divider, FormControlLabel, FormControl, Checkbox, Link } from '@mui/material';
+import { Box, Typography, Button, Divider, Link } from '@mui/material';
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import TextFields from './TextFields';
 import AutocompleteForms from './AutocompleteForms';
+import CheckboxField from './TermsField';
 import GoogleIcon from '@mui/icons-material/Google';
 
 const schema = yup
@@ -38,11 +39,9 @@ export default function RegisterForm() {
         reset();
     }
 
-    const terms = 'Да я понимаю и соглашаюсь с Условиями обслуживания ReceptionStudio, включая пользовательское соглашение и Политику конфиденциальности';
-
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <Box sx={{ display: 'block', width: 400, height: 650, borderRadius: '6px', boxShadow: 1, p: 4 }}  >
+            <Box sx={{ display: 'block', width: 400, borderRadius: '6px', boxShadow: 1, p: 4 }}  >
                 <Typography variant="h5" component="h2" sx={{ fontWeight: 'light', color: 'black', textAlign: 'left' }}>
                     Зарегистрируйтесь что би найти работу по душе
                 </Typography>;
@@ -64,20 +63,7 @@ export default function RegisterForm() {
                 <AutocompleteForms name={'Country'} errors={errors} label={'Country'} control={control} />
                 <AutocompleteForms name={'City'} errors={errors} label={'City'} control={control} />
 
-                <FormControl>
-                    <Controller
-                        name='Terms'
-                        control={control}
-                        render={({ fields }) => (
-                            <FormControlLabel
-                                control={<Checkbox {...fields} />}
-                                // required
-                                sx={{ color: 'black', textAlign: 'left', mt: 2, fontWeight: 'regular' }}
-                                errors={errors}
-                                label={terms} />
-                        )}
-                    />
-                </FormControl>
+                <CheckboxField name={'Terms'} label={'Terms'} control={control} errors={errors} />
 
                 <Button
                     type='submit'
