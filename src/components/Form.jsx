@@ -10,12 +10,12 @@ import GoogleIcon from '@mui/icons-material/Google';
 const schema = yup
     .object({
         Name: yup.string().min(2, 'Too Short!').required('Name is required'),
-        LastName: yup.string().required('Name is required'),
+        LastName: yup.string().required('Last name is required'),
         Password: yup.string().required('Password is required'),
-        Email: yup.string().email('Invalid email').required('Name is required'),
-        Country: "",
-        City: "",
-        Terms: yup.bool(),
+        Email: yup.string().email('Invalid email').required('Mail is required'),
+        Country: yup.string().required('Country is required'),
+        City: yup.string().required('City is required'),
+        Terms: yup.bool().oneOf([true], 'Field must be checked'),
     });
 
 export default function RegisterForm() {
@@ -32,7 +32,6 @@ export default function RegisterForm() {
         resolver: yupResolver(schema)
     });
     // console.log(errors)
-    // console.log('hi')
 
     const onSubmit = (data) => {
         console.log(data);
@@ -56,11 +55,11 @@ export default function RegisterForm() {
                 <Divider sx={{ mt: 3, color: 'black' }}>or</Divider>
 
                 <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <TextFields name={'FirstName'} errors={errors} label={'First Name'} control={control} marginRight={16} />
+                    <TextFields name={'Name'} errors={errors} label={'First Name'} control={control} marginRight={16} />
                     <TextFields name={'LastName'} errors={errors} label={'Last Name'} control={control} />
                 </Box>
-                <TextFields label={'Email'} name={'email'} errors={errors} control={control} sx={{ mt: 2, width: '100%' }} />
-                <TextFields name={'password'} errors={errors} label={'Password'} control={control} />
+                <TextFields name={'Email'} label={'Email'} errors={errors} control={control} sx={{ mt: 2, width: '100%' }} />
+                <TextFields name={'Password'} errors={errors} label={'Password'} control={control} />
 
                 <AutocompleteForms name={'Country'} errors={errors} label={'Country'} control={control} />
                 <AutocompleteForms name={'City'} errors={errors} label={'City'} control={control} />
@@ -71,7 +70,8 @@ export default function RegisterForm() {
                         control={control}
                         render={({ fields }) => (
                             <FormControlLabel
-                                control={<Checkbox {...fields} required />}
+                                control={<Checkbox {...fields} />}
+                                // required
                                 sx={{ color: 'black', textAlign: 'left', mt: 2, fontWeight: 'regular' }}
                                 errors={errors}
                                 label={terms} />
@@ -82,7 +82,7 @@ export default function RegisterForm() {
                 <Button
                     type='submit'
                     variant='contained'
-                    sx={{ width: '100%', mt: 2, backgroundColor: "#3048c0" }}>Log in
+                    sx={{ width: '100%', mt: 2 }}>Log in
                 </Button>
 
                 <Box sx={{ display: 'flex', mt: 2, justifyContent: 'center' }} onSubmit={handleSubmit(onSubmit)}>

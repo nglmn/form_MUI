@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import { FormControl, TextField } from "@mui/material";
 import { Controller } from "react-hook-form";
+import { ErrorMessage } from './ErrorMessage';
 
 
-// eslint-disable-next-line react/prop-types
 const TextFields = ({ label, inputProps, control, name, marginRight, errors }) => {
 
     const inputErrors = (error) => error ? { error: true } : { error: false }
@@ -16,11 +17,13 @@ const TextFields = ({ label, inputProps, control, name, marginRight, errors }) =
                     <TextField
                         {...field}
                         label={label}
+                        // required
                         size='small'
                         variant="outlined"
                         {...inputErrors(errors[name])}
                         inputProps={inputProps} />
                 )} />
+            {errors[name] ? <ErrorMessage message={errors[name].message} /> : null}
         </FormControl>
     )
 }

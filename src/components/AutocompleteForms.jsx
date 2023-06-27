@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import { FormControl, MenuItem, TextField } from "@mui/material";
 import { Controller } from "react-hook-form";
+import { ErrorMessage } from "./ErrorMessage";
 
 
-// eslint-disable-next-line react/prop-types
 const AutocompleteForms = ({ name, label, control, errors }) => {
 
     const [listCountry, setListCountry] = useState([]);
@@ -39,6 +40,7 @@ const AutocompleteForms = ({ name, label, control, errors }) => {
                     </TextField>
                 )}
             />
+            {errors[name] ? <ErrorMessage messge={errors[name].message} /> : null}
         </FormControl>
     )
 }
