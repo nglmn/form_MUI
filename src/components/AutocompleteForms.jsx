@@ -40,7 +40,7 @@ const AutocompleteForms = ({ name, label, control, errors }) => {
                     </TextField>
                 )}
             />
-            {errors[name] ? <ErrorMessage messge={errors[name].message} /> : null}
+            {errors[name] ? <ErrorMessage message={errors[name].message} /> : null}
         </FormControl>
     )
 }

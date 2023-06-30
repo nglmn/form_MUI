@@ -71,7 +71,7 @@ export default function RegisterForm() {
                     sx={{ width: '100%', mt: 2 }}>Log in
                 </Button>
 
-                <Box sx={{ display: 'flex', mt: 2, justifyContent: 'center' }} onSubmit={handleSubmit(onSubmit)}>
+                <Box sx={{ display: 'flex', mt: 2, justifyContent: 'center' }}>
                     <Typography
                         variant='subtitle1'
                         component="h2"
