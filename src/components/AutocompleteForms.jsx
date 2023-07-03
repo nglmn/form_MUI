@@ -30,7 +30,6 @@ const AutocompleteForms = ({ name, label, control, errors }) => {
                         {...field}
                         label={label}
                         size="small"
-                        // required
                         {...inputErrors(errors[name])}
                         select variant="outlined">
                         <MenuItem value=''>None</MenuItem>

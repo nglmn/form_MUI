@@ -12,6 +12,7 @@ import {
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, useForm, useFormContext, useWatch } from 'react-hook-form';
+import signInWithGoogle from './GoogleAuth/firebase';
 
 import TextFields from './TextFields';
 import AutocompleteInput from './AutocompleteInput';
@@ -108,6 +109,7 @@ const Form = () => {
                                 variant="outlined"
                                 startIcon={<GoogleIcon />}
                                 fullWidth
+                                onClick={signInWithGoogle}
                             >
                                 Continue with Google
                             </Button>
@@ -116,27 +118,27 @@ const Form = () => {
 
                             <Stack direction="row" spacing={2}>
                                 <TextFields
-                                    name={'Name'}
-                                    label={'First Name'}
+                                    name='Name'
+                                    label='First Name'
                                     marginRight={16}
                                 />
                                 <TextFields
-                                    name={'LastName'}
-                                    label={'Last Name'}
+                                    name='LastName'
+                                    label='Last Name'
                                 />
                             </Stack>
                             <TextFields
-                                name={'Email'}
-                                label={'Email'}
+                                name='Email'
+                                label='Email'
                             />
                             <TextFields
-                                name={'Password'}
-                                label={'Password'}
+                                name='Password'
+                                label='Password'
                             />
 
                             <AutocompleteInput
-                                name={'Country'}
-                                label={'Country'}
+                                name='Country'
+                                label='Country'
                                 choices={isLoading ? [] : countries}
                             />
                             <AutocompleteInput
@@ -147,8 +149,8 @@ const Form = () => {
                             />
 
                             <CheckboxField
-                                name={'Terms'}
-                                label={'Terms'}
+                                name='Terms'
+                                label='Terms'
                             />
 
                             <Button

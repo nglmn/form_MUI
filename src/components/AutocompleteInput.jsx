@@ -1,25 +1,34 @@
 /* eslint-disable react/prop-types */
-import {FormControl, MenuItem, TextField} from '@mui/material';
-import {Controller, useFormContext} from 'react-hook-form';
-import {ErrorMessage} from './ErrorMessage';
+import { FormControl, MenuItem, TextField } from '@mui/material';
+import { Controller, useFormContext } from 'react-hook-form';
+import { ErrorMessage } from './ErrorMessage';
 
-const AutocompleteInput = ({name, label, choices, disabled = false}) => {
-	const {formState: {errors}, control} = useFormContext();
+const AutocompleteInput = ({ name, label, choices, disabled = false }) => {
+	const { formState: { errors }, control } = useFormContext();
 	const inputErrors = (error) => !!error;
 
 	return (
-		<FormControl>
+		<FormControl
+			sx={{
+				textAlign: 'left'
+			}}>
 			<Controller
 				name={name}
 				control={control}
 				size="small"
-				render={({field}) => (
+				render={({ field }) => (
+					// <Autocomplete
+					// 	value={
+					// 		value ? choice.find()	
+					// 	}
+					// />
+					// const {onChange, value} = field;
+
 					<TextField
 						{...field}
 						label={label}
 						size="small"
 						disabled={disabled}
-						// required
 						error={inputErrors(errors[name])}
 						select
 						variant="outlined"
